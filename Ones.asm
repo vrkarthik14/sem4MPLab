@@ -40,12 +40,7 @@ code segment
     mov ah,9
     int 21h
     
-    mov al,00
-    ror bl,1
-    jc disp
-    
-    mov al,0ffh
-    disp:
+    mov al,bl
     mov dx,pa
     out dx,al
     
