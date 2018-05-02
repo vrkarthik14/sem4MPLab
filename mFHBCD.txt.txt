@@ -1,0 +1,50 @@
+assume cs:code,ds:data
+
+data segment
+    pa equ 20A0h
+    pb equ 20A1h
+    pc equ 20A2h
+    cr equ 20A3h
+    data ends
+code segment
+    start:
+    mov ax,data
+    mov ds,ax
+    
+    mov dx,cr
+    mov al,80h
+    out dx,al
+    
+    mov cx,100d
+    mov al,00
+    mov dx,pa
+    
+    nxt:
+    out dx,al
+    add al,1
+    daa
+    call delay
+    loop nxt
+    
+    mov cx,99d
+    nxt1:
+    sub al,1
+    das
+    out dx,al
+    call delay
+    loop nxt1
+    
+    mov ah,4ch
+    int 21h
+         
+    delay proc
+        mov si,02fffh
+        l2:mov di,0fff
+        l1:dec di
+           jnz l1
+           dec si
+           jnz l2
+		   ret     
+    code ends
+end start
+    
